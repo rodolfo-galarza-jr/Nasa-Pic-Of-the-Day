@@ -33,8 +33,8 @@ struct PhotoInfo : Codable{
     }
     
     init(){
-        self.description = "TEST"
-        self.title = "Title"
-        self.date = ""
+        self.description = "description ul lepum test sses sd ggeegte ryfcxw rtghdsew esxdfdw c the asdg w wecseg jhd rkfrgt hellu scwwer bhe"
+        self.title = "The Moon"
+        self.date = "2020-09-10"
     }
 }

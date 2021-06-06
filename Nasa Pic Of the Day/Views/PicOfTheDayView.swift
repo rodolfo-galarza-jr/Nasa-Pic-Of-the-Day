@@ -12,7 +12,26 @@ struct PicOfTheDayView: View {
     @ObservedObject var manager = NetworkManager()
     
     var body: some View {
-        Text(manager.photoInfo.title)
+        VStack(alignment: .leading, spacing: 10) {
+            
+            if manager.image != nil {
+                Image(uiImage: self.manager.image!)
+                    .resizable()
+                    .scaledToFit()
+            }
+            
+            ScrollView{
+                VStack{
+                    Text(manager.photoInfo.title)
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Text(manager.photoInfo.date)
+                    Text(manager.photoInfo.description)
+                }
+            }.padding()
+
+        }
+        
     }
 }
 
