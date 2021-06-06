@@ -14,6 +14,8 @@ class NetworkManager: ObservableObject {
     @Published var photoInfo = PhotoInfo()
     @Published var image: UIImage? = nil
     
+    @Published var date: Date = Date()
+    
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
@@ -21,16 +23,38 @@ class NetworkManager: ObservableObject {
         let url = URL(string: URLConstants.PodURL)!
         let fullURL = url.withQuery(["api_key" : URLConstants.key])!
         
+        // When we get a new date clear out current image
+        $date.removeDuplicates()
+            .sink{ (value) in
+                self.image = nil
+            }
+            .store(in: &subscriptions)
         
-        URLSession.shared.dataTaskPublisher(for: fullURL)
-            .map(\.data)
-            .decode(type: PhotoInfo.self, decoder: JSONDecoder())
-            .catch{ (error) in
-                Just(PhotoInfo())
+        $date.removeDuplicates()
+            .map{
+                self.createURL(for: $0)
+            }
+            .flatMap{ (url) in
+                URLSession.shared.dataTaskPublisher(for: url)
+                    .map(\.data)
+                    .decode(type: PhotoInfo.self, decoder: JSONDecoder())
+                    .catch{ (error) in
+                        Just(PhotoInfo())
+                    }
             }
             .receive(on: RunLoop.main)
             .assign(to: \.photoInfo, on: self)
             .store(in: &subscriptions)
+        
+//        URLSession.shared.dataTaskPublisher(for: fullURL)
+//            .map(\.data)
+//            .decode(type: PhotoInfo.self, decoder: JSONDecoder())
+//            .catch{ (error) in
+//                Just(PhotoInfo())
+//            }
+//            .receive(on: RunLoop.main)
+//            .assign(to: \.photoInfo, on: self)
+//            .store(in: &subscriptions)
         
         
         $photoInfo
@@ -64,5 +88,17 @@ class NetworkManager: ObservableObject {
 //                    print("fetched new data \(description)")
 //                }
 //            }.store(in: &subscriptions)
+    }
+    
+    func createURL(for date: Date) -> URL {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: date)
+        
+        let url = URL(string: URLConstants.PodURL)!
+        let fullURL = url.withQuery(["api_key" : URLConstants.key, "date": dateString])!
+        
+        return fullURL
     }
 }
