@@ -13,10 +13,11 @@ class MultiNetworkManager: ObservableObject {
     @Published var infos = [PhotoInfo]()
     private var subscriptions = Set<AnyCancellable>()
     
+    @Published var daysFromToday: Int = 0
+    
     init(){
-        let times = 0..<10
-        
-        times.publisher
+
+        $daysFromToday
             .map { daysFromToday in
                 API.createDate(daysFromToday: daysFromToday)
             }.map{ date in
@@ -36,5 +37,14 @@ class MultiNetworkManager: ObservableObject {
             .receive(on: RunLoop.main)
             .assign(to: \.infos, on: self)
             .store(in: &subscriptions)
+        
+        getMoreData(for: 20)
+    }
+    
+    
+    func getMoreData(for times: Int) {
+        for _ in 1..<times {
+            self.daysFromToday += 1
+        }
     }
 }
