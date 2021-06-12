@@ -19,10 +19,6 @@ class NetworkManager: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        // fetch data
-        let url = URL(string: URLConstants.PodURL)!
-        let fullURL = url.withQuery(["api_key" : URLConstants.key])!
-        
         // When we get a new date clear out current image
         $date.removeDuplicates()
             .sink{ (value) in
@@ -32,15 +28,10 @@ class NetworkManager: ObservableObject {
         
         $date.removeDuplicates()
             .map{
-                self.createURL(for: $0)
+                API.createURL(for: $0)
             }
             .flatMap{ (url) in
-                URLSession.shared.dataTaskPublisher(for: url)
-                    .map(\.data)
-                    .decode(type: PhotoInfo.self, decoder: JSONDecoder())
-                    .catch{ (error) in
-                        Just(PhotoInfo())
-                    }
+                API.createPublisher(url: url)
             }
             .receive(on: RunLoop.main)
             .assign(to: \.photoInfo, on: self)
@@ -88,17 +79,5 @@ class NetworkManager: ObservableObject {
 //                    print("fetched new data \(description)")
 //                }
 //            }.store(in: &subscriptions)
-    }
-    
-    func createURL(for date: Date) -> URL {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let dateString = formatter.string(from: date)
-        
-        let url = URL(string: URLConstants.PodURL)!
-        let fullURL = url.withQuery(["api_key" : URLConstants.key, "date": dateString])!
-        
-        return fullURL
     }
 }

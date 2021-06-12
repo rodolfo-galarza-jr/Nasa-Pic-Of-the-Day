@@ -17,6 +17,10 @@
 		605B1371266C3166004C8428 /* PicOfTheDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B1370266C3166004C8428 /* PicOfTheDayView.swift */; };
 		605B1373266C355B004C8428 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B1372266C355B004C8428 /* PhotoInfo.swift */; };
 		605B1375266C5C51004C8428 /* ChangeDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B1374266C5C51004C8428 /* ChangeDateView.swift */; };
+		605B1377266EFF63004C8428 /* MultiNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B1376266EFF63004C8428 /* MultiNetworkManager.swift */; };
+		605B1379266EFF88004C8428 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B1378266EFF88004C8428 /* API.swift */; };
+		605B137B266F0839004C8428 /* APODListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B137A266F0839004C8428 /* APODListView.swift */; };
+		605B137D266F0972004C8428 /* ApodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605B137C266F0971004C8428 /* ApodRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		605B1370266C3166004C8428 /* PicOfTheDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicOfTheDayView.swift; sourceTree = "<group>"; };
 		605B1372266C355B004C8428 /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		605B1374266C5C51004C8428 /* ChangeDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDateView.swift; sourceTree = "<group>"; };
+		605B1376266EFF63004C8428 /* MultiNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiNetworkManager.swift; sourceTree = "<group>"; };
+		605B1378266EFF88004C8428 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		605B137A266F0839004C8428 /* APODListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODListView.swift; sourceTree = "<group>"; };
+		605B137C266F0971004C8428 /* ApodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApodRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				605B1368266BFC71004C8428 /* NetworkManager.swift */,
+				605B1376266EFF63004C8428 /* MultiNetworkManager.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -106,6 +115,7 @@
 			children = (
 				605B136B266C2D3D004C8428 /* UrlConstants.swift */,
 				605B136D266C2F6D004C8428 /* URLHelper.swift */,
+				605B1378266EFF88004C8428 /* API.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -115,6 +125,8 @@
 			children = (
 				605B1370266C3166004C8428 /* PicOfTheDayView.swift */,
 				605B1374266C5C51004C8428 /* ChangeDateView.swift */,
+				605B137A266F0839004C8428 /* APODListView.swift */,
+				605B137C266F0971004C8428 /* ApodRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,10 +204,14 @@
 				605B136E266C2F6D004C8428 /* URLHelper.swift in Sources */,
 				605B1371266C3166004C8428 /* PicOfTheDayView.swift in Sources */,
 				605B1369266BFC71004C8428 /* NetworkManager.swift in Sources */,
+				605B1379266EFF88004C8428 /* API.swift in Sources */,
 				605B136C266C2D3D004C8428 /* UrlConstants.swift in Sources */,
+				605B1377266EFF63004C8428 /* MultiNetworkManager.swift in Sources */,
 				605B1358266B2258004C8428 /* ContentView.swift in Sources */,
+				605B137D266F0972004C8428 /* ApodRow.swift in Sources */,
 				605B1375266C5C51004C8428 /* ChangeDateView.swift in Sources */,
 				605B1356266B2258004C8428 /* Nasa_Pic_Of_the_DayApp.swift in Sources */,
+				605B137B266F0839004C8428 /* APODListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
