@@ -11,22 +11,28 @@ struct APODListView: View {
     @ObservedObject var manager = MultiNetworkManager()
     
     var body: some View {
-        List{
-            ForEach(manager.infos) { info in
-                ApodRow(photoInfo: info)
-                    .onAppear { // when we are on the last row load 10 more
-                        if let index = self.manager.infos.firstIndex(where: { $0.id == info.id }),
-                           index == self.manager.infos.count - 1 && self.manager.daysFromToday == self.manager.infos.count - 1 {
-                            self.manager.getMoreData(for: 10)
-                        }
+        
+        NavigationView {
+            List{
+                ForEach(manager.infos) { info in
+                    NavigationLink(destination: APODDetailView(photoInfo: info, manager: manager)){
+                        ApodRow(photoInfo: info)
                     }
-            }
+                        .onAppear { // when we are on the last row load 10 more
+                            if let index = self.manager.infos.firstIndex(where: { $0.id == info.id }),
+                               index == self.manager.infos.count - 1 && self.manager.daysFromToday == self.manager.infos.count - 1 {
+                                self.manager.getMoreData(for: 10)
+                            }
+                        }
+                }
 
-            ForEach(0..<15) { _ in
-                Rectangle()
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(height: 50)
+                ForEach(0..<15) { _ in
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(height: 50)
+                }
             }
+            .navigationBarTitle("Pic of the Day")
         }
     }
 }
